@@ -15,6 +15,7 @@ FROM department d
     JOIN employee e USING (employee_id)
 WHERE
     d.name = 'Отдел IT'
+    AND j.is_manager
     AND jh.end_date IS NULL;
 ```
 
