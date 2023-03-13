@@ -31,6 +31,4 @@
 Покрытие методов сервисов этими тестами представлено на рисунке ниже:
 ![ServiceCoverage](ServiceCoverage.png)
 
-Или, в виде [отчета](../ServiceCoverageReport/ns-1/index.html), сгенерированного `IntelliJ IDEA`.
-
 Непокрытым остался лишь тривиальный save-метод.
