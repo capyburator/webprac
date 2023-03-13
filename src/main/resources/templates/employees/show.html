@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${employee.getFullName()}"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link text-uppercase" th:href="@{/index}">На главную</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="mt-2 ms-2">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h4 class="fw-bold">Общая информация</h4>
+        <p>Имя: <span th:text="${employee.getFullName()}"></span></p>
+        <p>Дата рождения:
+          <span th:with="date=${employee.getBirthDate()}" th:text="${#temporals.format(date, 'dd/MM/yyyy')}">
+          </span>
+        </p>
+        <p>Общий срок работы: <span th:text="${totalDays}"></span> дней</p>
+      </div>
+      <div class="col">
+        <h4 class="fw-bold">Контактная информация</h4>
+        <p>Email: <span th:text="${employee.getEmail()}"></span></p>
+        <p>Номер телефона: <span th:text="${employee.getPhoneNo()}"></span></p>
+        <p>Адрес: <span th:text="${employee.getAddress()}"></span></p>
+      </div>
+      <div class="col">
+        <h4 class="fw-bold">Образование</h4>
+        <p>Уровень: <span th:text="${employee.getEducationLevel()}"></span></p>
+        <p>Место получения: <span th:text="${employee.getAlmaMater()}"></span></p>
+      </div>
+    </div>
+  </div>
+  <div th:if="${!historyList.isEmpty()}">
+    <h4 class="fw-bold">История должностей</h4>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th> #</th>
+        <th> Должность</th>
+        <th> Подразделение</th>
+        <th> Дата назначения</th>
+        <th> Дата снятия</th>
+        <th> Срок (дней)</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="h, iStat: ${historyList}">
+        <td th:text="${iStat.index + 1}"></td>
+        <td th:text="${h.getJob().getTitle()}"></td>
+        <td th:text="${h.getDepartment().getName()}"></td>
+        <td th:text="${#temporals.format(h.getStartDate(), 'dd/MM/yyyy')}"></td>
+        <td th:text="${h.getEndDate() != null} ? ${#temporals.format(h.getEndDate(), 'dd/MM/yyyy')} : ''"></td>
+        <td th:text="${jobDays[__${iStat.index}__]}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <br/>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-auto">
+        <a th:href="@{/employees/{id}/edit(id=${employee.getId()})}" class="btn btn-outline-success">Редактировать</a>
+      </div>
+      <div class="col-md-auto ms-3">
+        <form th:method="GET" th:action="@{/jobHistories/{id}(id=${employee.getId()})}">
+          <input th:if="${hasCurrentJob == true}" type="submit" value="Снять с текущей должности"
+                 onclick="return confirm('Снять с текущей должности?')" class="btn btn-outline-warning"/>
+          <input th:if="${hasCurrentJob != true}" type="submit" value="Снять с текущей должности"
+                 class="btn btn-outline-warning disabled" aria-disabled="true"/>
+        </form>
+      </div>
+      <div class="col-md-auto ms-3">
+        <a th:if="${hasCurrentJob != true}" th:method="GET" th:href="@{/jobHistories/new/{id}(id=${employee.getId()})}"
+           class="btn btn-outline-success">
+          Назначить на новую должность
+        </a>
+        <a th:if="${hasCurrentJob == true}" class="btn btn-outline-success disabled" aria-disabled="true">
+          Назначить на новую должность
+        </a>
+      </div>
+      <div class="col-md-auto ms-3">
+        <form th:method="DELETE" th:action="@{/employees/{id}(id=${employee.getId()})}">
+          <input type="submit" value="Удалить" onclick="return confirm('Удалить сотрудника?')"
+                 class="btn btn-outline-danger"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+<br/>
+</body>
+</html>

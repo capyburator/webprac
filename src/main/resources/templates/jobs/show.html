@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${job.getTitle()}"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link text-uppercase" th:href="@{/index}">На главную</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="mt-2 ms-2">
+  <h4>Информация о должности</h4>
+  <p>Название: <span th:text="${job.getTitle()}"></span></p>
+  <p>Описание: <span th:text="${job.getDescription()}"></span></p>
+
+  <div th:if="${!employees.isEmpty()}">
+    <h4>Список сотрудников на должности</h4>
+    <ol>
+      <li th:each="employee: ${employees}">
+        <a th:href="@{/employees/{id}(id=${employee.getId()})}" th:text="${employee.getFullName()}"
+           class="btn bnt-outline-link text-primary"></a>
+      </li>
+    </ol>
+  </div>
+  <br/>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-auto">
+        <a th:href="@{/jobs/{id}/edit(id=${job.getId()})}" class="btn btn-outline-success">Редактировать</a>
+      </div>
+      <div class="col-md-auto ms-3">
+        <form th:method="DELETE" th:action="@{/jobs/{id}(id=${job.getId()})}">
+          <input th:if="${isIncumbent != true}" type="submit" value="Удалить"
+                 onclick="return confirm('Удалить должность?')" class="btn btn-outline-danger"/>
+          <input th:if="${isIncumbent == true}" type="submit" value="Удалить"
+                 class="btn btn-outline-danger disabled" aria-disabled="true"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+<br/>
+</body>
+</html>

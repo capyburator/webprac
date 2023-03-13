@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Редактировать сотрудника</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link text-uppercase" th:href="@{/index}">На главную</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="ms-2 mt-2">
+  <form th:method="PATCH" th:action="@{/employees/{id}(id=${employee.getId()})}" th:object="${employee}">
+    <div class="mb-3">
+      <label for="fullName" class="form-label">Новое имя</label>
+      <input type="text" class="form-control" id="fullName" th:field="*{fullName}">
+    </div>
+    <div class="mb-3">
+      <label for="address" class="form-label">Новый адрес</label>
+      <input type="text" class="form-control" th:field="*{address}" id="address"/>
+    </div>
+    <div class="mb-3">
+      <label for="phoneNo" class="form-label">Новый номер телефона</label>
+      <input type="text" class="form-control" th:field="*{phoneNo}" id="phoneNo"/>
+    </div>
+    <div class="mb-3">
+      <label for="birthDate" class="form-label">Новая дата рождения</label>
+      <input type="date" class="form-control" th:field="*{birthDate}" id="birthDate"/>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Новая почта</label>
+      <input type="text" class="form-control" th:field="*{email}" id="email"/>
+    </div>
+    <div class="mb-3">
+      <label for="educationLevel" class="form-label">Новый уровень образования</label>
+      <select id="educationLevel" class="form-select form-select-sm mb-3" th:field="*{educationLevel}">
+        <option selected value="Высшее">Высшее</option>
+        <option value="Среднее">Среднее</option>
+        <option value="Среднее профессиональное">Среднее профессиональное</option>
+        <option value="Начальное">Начальное</option>
+        <option value="Без образования">Без образования</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="almaMater" class="form-label">Новое место получения образования</label>
+      <input type="text" class="form-control" th:field="*{almaMater}" id="almaMater"/>
+    </div>
+    <input type="submit" value="Редактировать" class="btn btn-outline-success"/>
+  </form>
+</div>
+
+</body>
+</html>

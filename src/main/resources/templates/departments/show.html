@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${department.getName()}"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link text-uppercase" th:href="@{/index}">На главную</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="ms-2 mt-2">
+  <p>Название: <span th:text="${department.getName()}"></span></p>
+  <div th:if="${manager != null}">
+    <p>Начальник отдела:
+      <a th:text="${manager.getFullName()}" th:href="@{/employees/{id}(id=${manager.getId()})}" class="text-primary btn btn-outline-link"></a>
+    </p>
+  </div>
+  <div th:if="${department.getParent() != null}">
+    <p>Головное подразделение:
+      <a th:href="@{/departments/{id}(id=${department.getParent().getId()})}"
+         th:text="${department.getParent().getName()}" class="btn btn-outline-link text-primary"></a>
+    </p>
+  </div>
+  <div th:if="${!subsidiaries.isEmpty()}">
+    <h4>Дочерние подразделения:</h4>
+    <ol>
+      <li th:each="subsidiary: ${subsidiaries}">
+        <a th:href="@{/departments/{id}(id=${subsidiary.getId()})}" th:text="${subsidiary.getName()}"
+           class="text-primary btn btn-outline-link"></a>
+      </li>
+    </ol>
+  </div>
+  <div th:if="${!employees.isEmpty()}">
+    <h4 class="fw-bold">Сотрудники подразделения</h4>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th> # </th>
+        <th> Должность </th>
+        <th> Сотрудник </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="e, iStat: ${employees}">
+        <td th:text="${iStat.index + 1}"></td>
+        <td th:with="job = ${jobs[__${iStat.index}__]}" th:text="${job.getTitle()}"></td>
+        <td>
+          <a th:text="${e.getFullName()}" th:href="@{/employees/{id}(id=${e.getId()})}"
+             class="text-primary btn btn-outline-link"></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <h4 class="fw-bold">Должности</h4>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th> Должность </th>
+        <th> Количество </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="item: ${jobsCounted}">
+        <td th:text="${item.key.getTitle()}"></td>
+        <td th:text="${item.value}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <br/>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-auto">
+        <a th:href="@{/departments/{id}/edit(id=${department.getId()})}" class="btn btn-outline-success">Редактировать</a>
+      </div>
+      <div class="col-md-auto ms-3">
+        <a class="btn btn-outline-success" th:method="GET"
+           th:href="@{/departments/{id}/newSubsidiary(id=${department.getId()})}">
+          Добавить внутреннее подразделение
+        </a>
+      </div>
+      <div class="col-md-auto ms-3">
+        <form th:method="POST" th:action="@{/departments/{id}/removeParent(id=${department.getId()})}">
+          <input th:if="${department.getParent() != null}" type="submit" value="Сбросить головное подразделение"
+                 onclick="return confirm('Сбросить головное подразделение?')" class="btn btn-outline-warning"/>
+          <input th:if="${department.getParent() == null}" type="submit" value="Сбросить головное подразделение"
+                 class="btn btn-outline-warning disabled" aria-disabled="true"/>
+        </form>
+      </div>
+      <div class="col-md-auto ms-3">
+        <form th:method="DELETE" th:action="@{/departments/{id}(id=${department.getId()})}">
+          <input th:if="${isDisbanded == true}" type="submit" value="Удалить"
+                 onclick="return confirm('Удалить подразделение?')" class="btn btn-outline-danger"/>
+          <input th:if="${isDisbanded != true}" type="submit" value="Удалить"
+                 class="btn btn-outline-danger disabled" aria-disabled="true"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+<br/>
+</body>
+</html>
