@@ -32,3 +32,6 @@
 ![ServiceCoverage](ServiceCoverage.png)
 
 Непокрытым остался лишь тривиальный save-метод.
+
+Непокрытые `if` операторы появляются в результате нарушения контракта `@NonNull`:
+![nonNullTracing](nonNullTracing.png)
