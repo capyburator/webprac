@@ -1,5 +1,6 @@
 package ru.ilichev.webprac.service;
 
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +54,7 @@ public class DepartmentService {
     }
 
     @Transactional
-    public void update(Department department, Integer id) {
+    public void update(@NonNull Department department, Integer id) {
         department.setId(id);
         departmentDAO.save(department);
     }
@@ -88,13 +89,9 @@ public class DepartmentService {
     }
 
     @Transactional
-    public void addSubsidiaryByIdAndSubsidiaryId(Integer id, Integer subsidiaryId) {
-        Department department = getById(id);
-        Department subsidiary = getById(subsidiaryId);
-        if (department != null && subsidiary != null) {
-            subsidiary.setParent(department);
-            departmentDAO.save(subsidiary);
-        }
+    public void addSubsidiary(@NonNull Department department, @NonNull Department subsidiary) {
+        subsidiary.setParent(department);
+        departmentDAO.save(subsidiary);
     }
 
     @Transactional(readOnly = true)
@@ -103,11 +100,8 @@ public class DepartmentService {
     }
 
     @Transactional
-    public void removeParentById(Integer id) {
-        Department department = getById(id);
-        if (department != null) {
-            department.setParent(null);
-            departmentDAO.save(department);
-        }
+    public void removeParent(@NonNull Department department) {
+        department.setParent(null);
+        departmentDAO.save(department);
     }
 }

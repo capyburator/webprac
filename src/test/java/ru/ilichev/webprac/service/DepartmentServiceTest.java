@@ -91,11 +91,12 @@ public class DepartmentServiceTest {
     public void addSubsidiaryTest() {
         Integer id = 4;
         Integer subsidiaryId = 9;
+        Department department = departmentService.getById(id);
         Department subsidiary = departmentService.getById(subsidiaryId);
 
         assertNull(subsidiary.getParent());
 
-        departmentService.addSubsidiaryByIdAndSubsidiaryId(id, subsidiaryId);
+        departmentService.addSubsidiary(department, subsidiary);
 
         Department updatedSubsidiary = departmentService.getById(subsidiaryId);
 
@@ -119,7 +120,7 @@ public class DepartmentServiceTest {
         assertNotNull(department.getParent());
         assertThat(department.getParent(), is(parent));
 
-        departmentService.removeParentById(id);
+        departmentService.removeParent(department);
 
         Department updatedDepartment = departmentService.getById(id);
         assertNull(updatedDepartment.getParent());
@@ -139,7 +140,7 @@ public class DepartmentServiceTest {
 
         assertNull(department.getParent());
 
-        departmentService.removeParentById(id);
+        departmentService.removeParent(department);
 
         Department updatedDepartment = departmentService.getById(id);
 

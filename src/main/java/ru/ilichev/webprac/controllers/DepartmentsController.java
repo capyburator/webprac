@@ -116,13 +116,25 @@ public class DepartmentsController {
     ) {
         Integer id = departmentAndSubsidiary.getFirst();
         Integer subsidiaryId = departmentAndSubsidiary.getSecond();
-        departmentService.addSubsidiaryByIdAndSubsidiaryId(id, subsidiaryId);
+        Department department = departmentService.getById(id);
+        if (department == null) {
+            throw new ResponseStatusException(NOT_FOUND, "Department with id `" + id + "` not found");
+        }
+        Department subsidiary = departmentService.getById(subsidiaryId);
+        if (subsidiary == null) {
+            throw new ResponseStatusException(NOT_FOUND, "Subsidiary with id `" + id + "` not found");
+        }
+        departmentService.addSubsidiary(department, subsidiary);
         return "redirect:/departments/" + id;
     }
 
     @PostMapping("/{id}/removeParent")
     public String removeParent(@PathVariable("id") Integer id) {
-        departmentService.removeParentById(id);
+        Department department = departmentService.getById(id);
+        if (department == null) {
+            throw new ResponseStatusException(NOT_FOUND, "Department with id `" + id + "` not found");
+        }
+        departmentService.removeParent(department);
         return "redirect:/departments/" + id;
     }
 }

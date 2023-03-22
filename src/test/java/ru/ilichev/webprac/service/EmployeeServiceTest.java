@@ -9,6 +9,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.ilichev.webprac.models.Employee;
+import ru.ilichev.webprac.models.Job;
 import ru.ilichev.webprac.models.JobHistory;
 
 import java.time.LocalDate;
@@ -43,7 +44,7 @@ public class EmployeeServiceTest {
     public void findAllTest() {
         List<Employee> employees = employeeService.findAll();
         assertNotNull(employees);
-        assertEquals(13, employees.size());
+        assertEquals(15, employees.size());
     }
 
     @Test
@@ -102,12 +103,27 @@ public class EmployeeServiceTest {
     @Test
     public void filterTest() {
         Assertions.assertThat(employeeService.findByFullNameLike("АлеКсЕЙ")).hasSize(2);
-        Assertions.assertThat(employeeService.findByFullNameLike("")).hasSize(13);
+        Assertions.assertThat(employeeService.findByFullNameLike("")).hasSize(15);
         Assertions.assertThat(employeeService.findByFullNameLike("Ксеалей")).hasSize(0);
     }
 
     @Test
     public void filterDaysTest() {
-        Assertions.assertThat(employeeService.findByTotalDaysGraterThan(2)).hasSize(13);
+        Assertions.assertThat(employeeService.findByTotalDaysGraterThan(2)).hasSize(14);
+    }
+
+    @Test
+    public void findJobHistoryHasHistory() {
+        List<JobHistory> smelJobHistory = employeeService.findAllJobHistoryById(14);
+        Assertions.assertThat(smelJobHistory)
+                .extracting(JobHistory::getJob)
+                .extracting(Job::getId)
+                .containsExactly(12, 3, 4, 11, 9, 7, 1, 2);
+    }
+
+    @Test
+    public void findJobHistoryHasNoHistory() {
+        List<JobHistory> mashJobHistory = employeeService.findAllJobHistoryById(15);
+        assertTrue(mashJobHistory.isEmpty());
     }
 }

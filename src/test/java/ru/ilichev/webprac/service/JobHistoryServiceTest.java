@@ -37,9 +37,16 @@ public class JobHistoryServiceTest {
     EmployeeService employeeService;
 
     @Test
-    public void removeEmployeeFromCurrentJob() {
+    public void removeFromCurrentJobHasCurrentJob() {
         assertTrue(employeeService.hasCurrentJobById(1));
         jobHistoryService.removeEmployeeFromCurrentJobById(1);
         assertFalse(employeeService.hasCurrentJobById(1));
+    }
+
+    @Test
+    public void removeFromCurrentJobHasNotCurrentJob() {
+        assertFalse(employeeService.hasCurrentJobById(13));
+        jobHistoryService.removeEmployeeFromCurrentJobById(13);
+        assertFalse(employeeService.hasCurrentJobById(13));
     }
 }

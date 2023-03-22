@@ -1,5 +1,6 @@
 package ru.ilichev.webprac.service;
 
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +45,7 @@ public class JobService {
     }
 
     @Transactional
-    public void update(Job job, Integer id) {
+    public void update(@NonNull Job job, Integer id) {
         job.setId(id);
         jobDAO.save(job);
     }

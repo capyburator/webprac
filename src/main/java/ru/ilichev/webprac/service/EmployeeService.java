@@ -13,6 +13,7 @@ import ru.ilichev.webprac.repo.JobHistoryRepository;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,20 +60,12 @@ public class EmployeeService {
         Employee employee = getById(id);
         List<JobHistory> jobHistories = employee.getHistory();
         jobHistories.forEach(Hibernate::initialize);
-        jobHistories.sort((h1, h2) -> {
-            int startDateCmp = h2.getStartDate().compareTo(h1.getStartDate());
-            if (startDateCmp != 0) {
-                return startDateCmp;
-            }
-            if (h2.getEndDate() == null) {
-                return 1;
-            }
-            if (h1.getEndDate() == null) {
-                return -1;
-            }
-            return h2.getEndDate().compareTo(h1.getEndDate());
-        });
-        return jobHistories;
+        return jobHistories
+                .stream()
+                .sorted(Comparator.comparing(JobHistory::getStartDate, Comparator.reverseOrder())
+                        .thenComparing(JobHistory::getEndDate, Comparator.nullsFirst(Comparator.reverseOrder()))
+                        .thenComparingInt(h -> h.getJob().getId()))
+                .toList();
     }
 
     @Transactional(readOnly = true)
