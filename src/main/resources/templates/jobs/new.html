@@ -35,6 +35,7 @@
         Руководящая должность
       </label>
     </div>
+    <div th:if="${alreadyExists == true}" class="text-danger">Должность с таким названием уже существует!</div>
     <input type="submit" value="Добавить" class="btn btn-outline-success"/>
   </form>
 </div>

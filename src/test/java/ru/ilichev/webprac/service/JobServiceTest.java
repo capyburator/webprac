@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = WebpracApplication.class)
-@TestPropertySource("/application.properties")
+@TestPropertySource("/application-test.properties")
 @Sql(value = {"/scripts/job-before.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = {"/scripts/job-after.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class JobServiceTest {

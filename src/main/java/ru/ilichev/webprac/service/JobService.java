@@ -40,14 +40,21 @@ public class JobService {
     }
 
     @Transactional
-    public void save(Job job) {
-        jobDAO.save(job);
+    public boolean save(@NonNull Job job) {
+        if (jobDAO.findByTitle(job.getTitle()).isEmpty()) {
+            jobDAO.save(job);
+            return true;
+        }
+        return false;
     }
 
     @Transactional
     public void update(@NonNull Job job, Integer id) {
-        job.setId(id);
-        jobDAO.save(job);
+        Job jobToUpdate = getById(id);
+        jobToUpdate.setTitle(job.getTitle());
+        jobToUpdate.setDescription(job.getDescription());
+        jobToUpdate.setManager(job.isManager());
+        jobDAO.save(jobToUpdate);
     }
 
     @Transactional

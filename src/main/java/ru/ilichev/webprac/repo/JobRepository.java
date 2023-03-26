@@ -7,11 +7,14 @@ import ru.ilichev.webprac.models.Employee;
 import ru.ilichev.webprac.models.Job;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface JobRepository extends JpaRepository<Job, Integer> {
     List<Job> findByActiveTrue();
 
     List<Job> findByActiveTrueAndTitleLikeIgnoreCase(String titlePattern);
+
+    Optional<Job> findByTitle(String title);
 
     @Query(
         "SELECT e FROM Job j "

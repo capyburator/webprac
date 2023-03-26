@@ -29,7 +29,7 @@
     <ol>
       <li th:each="employee: ${employees}">
         <a th:href="@{/employees/{id}(id=${employee.getId()})}" th:text="${employee.getFullName()}"
-           class="btn bnt-outline-link text-primary"></a>
+           class="btn btn-outline-link text-primary"></a>
       </li>
     </ol>
   </div>
@@ -42,7 +42,7 @@
       </div>
       <div class="col-md-auto ms-3">
         <form th:method="DELETE" th:action="@{/jobs/{id}(id=${job.getId()})}">
-          <input th:if="${isIncumbent != true}" type="submit" value="Удалить"
+          <input th:if="${isIncumbent != true}" type="submit" value="Удалить" aria-disabled="false"
                  onclick="return confirm('Удалить должность?')" class="btn btn-outline-danger"/>
           <input th:if="${isIncumbent == true}" type="submit" value="Удалить"
                  class="btn btn-outline-danger disabled" aria-disabled="true"/>

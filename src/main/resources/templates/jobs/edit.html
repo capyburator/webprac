@@ -27,7 +27,7 @@
     </div>
     <div class="mb-3">
       <label for="description" class="form-label">Новое описание</label>
-      <input type="text" class="form-control" th:field="*{description}" id="description"/>
+      <textarea class="form-control" id="description" rows="1" th:field="*{description}"></textarea>
     </div>
     <div class="mb-3">
       <label for="manager" class="form-label">Является ли должность руководящей? </label>

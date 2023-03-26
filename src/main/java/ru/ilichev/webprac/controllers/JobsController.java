@@ -43,13 +43,17 @@ public class JobsController {
     }
 
     @GetMapping("/new")
-    public String newJob(@ModelAttribute("job") Job job) {
+    public String newJob(@ModelAttribute("job") Job job, Model model) {
+        model.addAttribute("alreadyExists", false);
         return "jobs/new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("job") Job job) {
-        jobService.save(job);
+    public String create(@ModelAttribute("job") Job job, Model model) {
+        if (!jobService.save(job)) {
+            model.addAttribute("alreadyExists", true);
+            return "jobs/new";
+        }
         return "redirect:/jobs";
     }
 

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestPropertySource("/application.properties")
+@TestPropertySource("/application-test.properties")
 @Sql(value = {
         "/scripts/department-before.sql",
         "/scripts/employee-before.sql",
