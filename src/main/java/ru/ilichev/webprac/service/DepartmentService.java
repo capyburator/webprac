@@ -49,14 +49,19 @@ public class DepartmentService {
     }
 
     @Transactional
-    public void save(Department department) {
-        departmentDAO.save(department);
+    public boolean save(Department department) {
+        if (departmentDAO.findByName(department.getName()).isEmpty()) {
+            departmentDAO.save(department);
+            return true;
+        }
+        return false;
     }
 
     @Transactional
     public void update(@NonNull Department department, Integer id) {
-        department.setId(id);
-        departmentDAO.save(department);
+        Department departmentToUpdate = getById(id);
+        departmentToUpdate.setName(department.getName());
+        departmentDAO.save(departmentToUpdate);
     }
 
     @Transactional

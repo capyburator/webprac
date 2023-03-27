@@ -65,13 +65,23 @@ public class DepartmentsController {
     }
 
     @GetMapping("/new")
-    public String newDepartment(@ModelAttribute("department") Department department) {
+    public String newDepartment(
+            @ModelAttribute("department") Department department,
+            Model model
+    ) {
+        model.addAttribute("alreadyExists", false);
         return "departments/new";
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("department") Department department) {
-        departmentService.save(department);
+    public String create(
+            @ModelAttribute("department") Department department,
+            Model model
+    ) {
+        if (!departmentService.save(department)) {
+            model.addAttribute("alreadyExists", true);
+            return "departments/new";
+        }
         return "redirect:/departments";
     }
 

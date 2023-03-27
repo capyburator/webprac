@@ -12,10 +12,10 @@ public class MainPage extends BasePage {
     private String URL;
 
     @FindBy(how = How.XPATH, using = "//a[text()='Сотрудники']")
-    private WebElement departmentsButton;
+    private WebElement employeesButton;
 
     @FindBy(how = How.XPATH, using = "//a[text()='Подразделения']")
-    private WebElement employeesButton;
+    private WebElement departmentsButton;
 
     @FindBy(how = How.XPATH, using = "//a[text()='Должности']")
     private WebElement jobsButton;

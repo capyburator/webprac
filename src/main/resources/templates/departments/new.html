@@ -25,6 +25,7 @@
       <label for="name" class="form-label">Название</label>
       <input type="text" class="form-control" th:field="*{name}" id="name"/>
     </div>
+    <div th:if="${alreadyExists == true}" class="text-danger">Подразделение с таким названием уже существует!</div>
     <input type="submit" value="Добавить" class="btn btn-outline-success"/>
   </form>
 </div>

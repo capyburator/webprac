@@ -94,14 +94,15 @@
       <div class="col-md-auto ms-3">
         <form th:method="POST" th:action="@{/departments/{id}/removeParent(id=${department.getId()})}">
           <input th:if="${department.getParent() != null}" type="submit" value="Сбросить головное подразделение"
-                 onclick="return confirm('Сбросить головное подразделение?')" class="btn btn-outline-warning"/>
+                 onclick="return confirm('Сбросить головное подразделение?')" class="btn btn-outline-warning"
+                 aria-disabled="false"/>
           <input th:if="${department.getParent() == null}" type="submit" value="Сбросить головное подразделение"
                  class="btn btn-outline-warning disabled" aria-disabled="true"/>
         </form>
       </div>
       <div class="col-md-auto ms-3">
         <form th:method="DELETE" th:action="@{/departments/{id}(id=${department.getId()})}">
-          <input th:if="${isDisbanded == true}" type="submit" value="Удалить"
+          <input th:if="${isDisbanded == true}" type="submit" value="Удалить" aria-disabled="false"
                  onclick="return confirm('Удалить подразделение?')" class="btn btn-outline-danger"/>
           <input th:if="${isDisbanded != true}" type="submit" value="Удалить"
                  class="btn btn-outline-danger disabled" aria-disabled="true"/>

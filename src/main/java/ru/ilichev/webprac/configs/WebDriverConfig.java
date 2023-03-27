@@ -1,5 +1,6 @@
 package ru.ilichev.webprac.configs;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -7,7 +8,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Scope;
 import ru.ilichev.webprac.annotation.LazyConfiguration;
 
 import java.time.Duration;
@@ -33,7 +37,8 @@ public class WebDriverConfig {
     }
 
     @Bean
-    public WebDriverWait webDriverWait() {
-        return new WebDriverWait(webDriver(), Duration.ofMillis(EXPLICIT_TIMEOUT));
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    public WebDriverWait webDriverWait(WebDriver driver) {
+        return new WebDriverWait(driver, Duration.ofMillis(EXPLICIT_TIMEOUT));
     }
 }

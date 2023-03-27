@@ -1,10 +1,7 @@
 package ru.ilichev.webprac.pages;
 
 import jakarta.annotation.PostConstruct;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -41,6 +38,11 @@ public class BasePage {
         } else {
             ((WebElement) elementAttr).click();
         }
+    }
+
+    public void jsClick(WebElement element) {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click()", wait.until(ExpectedConditions.visibilityOf(element)));
     }
 
     public <T> void writeToElement(T elementAttr, String text) {

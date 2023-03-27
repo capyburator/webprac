@@ -7,12 +7,15 @@ import ru.ilichev.webprac.models.Department;
 import ru.ilichev.webprac.models.Employee;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DepartmentRepository extends JpaRepository<Department, Integer> {
     @Query(
         "SELECT DISTINCT s FROM Department d JOIN d.subsidiaries s WHERE d.id = :id AND s.active"
     )
     List<Department> findSubsidiariesById(@Param("id") Integer id);
+
+    Optional<Department> findByName(String name);
 
     List<Department> findByActiveTrue();
 
