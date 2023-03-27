@@ -22,19 +22,16 @@ public class JobPage extends DeletablePage {
     private List<WebElement> employees;
 
     public JobPage verifyTitleIs(String expected) {
-        String titleContent = readFromElement(title);
-        assertThat(titleContent).isEqualTo(expected);
+        verifyElementContentIs(title, expected);
         return this;
     }
 
     public JobPage verifyDescriptionIs(String expected) {
-        String descriptionContent = readFromElement(description);
-        assertThat(descriptionContent).isEqualTo(expected);
+        verifyElementContentIs(description, expected);
         return this;
     }
 
-    public JobPage verifyNumberOfEmployeesIs(int count) {
+    public void verifyNumberOfEmployeesIs(int count) {
         assertThat(employees).hasSize(count);
-        return this;
     }
 }

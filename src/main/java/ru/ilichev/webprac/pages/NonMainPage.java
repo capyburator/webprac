@@ -8,8 +8,7 @@ public class NonMainPage extends BasePage {
     @FindBy(how = How.XPATH, using = "//a[contains(@class, 'nav-link')]")
     private WebElement toMainButton;
 
-    public NonMainPage goToMainPage() {
+    public void goToMainPage() {
         click(toMainButton);
-        return this;
     }
 }

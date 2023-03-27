@@ -24,9 +24,8 @@ public class ListPage extends NonMainPage {
     @FindBy(how = How.TAG_NAME, using = "button")
     private WebElement filterSubmitButton;
 
-    public ListPage goToAddPage() {
+    public void goToAddPage() {
         click(addButton);
-        return this;
     }
 
     public ListPage verifyContains(String needle) {
@@ -35,15 +34,13 @@ public class ListPage extends NonMainPage {
         return this;
     }
 
-    public ListPage verifyDoesNotContains(String needle) {
+    public void verifyDoesNotContains(String needle) {
         List<String> haystack = list.stream().map(this::readFromElement).toList();
         assertThat(haystack).doesNotContain(needle);
-        return this;
     }
 
-    public ListPage verifyContainsExactlyInAnyOrder(List<String> needles) {
+    public void verifyContainsExactlyInAnyOrder(List<String> needles) {
         verifyElementsContainsExactly(list, needles);
-        return this;
     }
 
     public ListPage filter(String pattern) {
@@ -52,9 +49,8 @@ public class ListPage extends NonMainPage {
         return this;
     }
 
-    public ListPage goToPageByName(String name) {
+    public void goToPageByName(String name) {
         WebElement link = driver.findElement(By.xpath("//a[contains(text(),'" + name + "')]"));
         click(link);
-        return this;
     }
 }

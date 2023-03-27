@@ -1,8 +1,6 @@
 package ru.ilichev.webprac.pages.departments;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptException;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -10,7 +8,6 @@ import ru.ilichev.webprac.annotation.LazyComponent;
 import ru.ilichev.webprac.pages.DeletablePage;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -50,23 +47,19 @@ public class DepartmentPage extends DeletablePage {
     }
 
     public void verifyParentIs(String name) {
-        String parentName = readFromElement(parent.iterator().next());
-        assertThat(parentName).isEqualTo(name);
+        verifyHasParent().verifyElementContentIs(parent.iterator().next(), name);
     }
 
     public void verifyNameIs(String expected) {
-        String nameContent = readFromElement(name);
-        assertThat(nameContent).isEqualTo(expected);
+        verifyElementContentIs(name, expected);
     }
 
     public void verifyRemoveParentButtonIsEnabled() {
-        String disabled = removeParentButton.getAttribute("ariaDisabled");
-        assertThat(disabled).isEqualTo("false");
+        verifyElementIsEnabled(removeParentButton);
     }
 
     public void verifyRemoveParentButtonIsDisabled() {
-        String disabled = removeParentButton.getAttribute("ariaDisabled");
-        assertThat(disabled).isEqualTo("true");
+        verifyElementIsDisabled(removeParentButton);
     }
 
     public void removeParent() {
@@ -96,8 +89,7 @@ public class DepartmentPage extends DeletablePage {
     }
 
     public void verifyManagerIs(String expected) {
-        String fullName = readFromElement(manager.iterator().next());
-        assertThat(fullName).isEqualTo(expected);
+        verifyHasManager().verifyElementContentIs(manager.iterator().next(), expected);
     }
 
     public void goToSubsidiaryAddPage() {

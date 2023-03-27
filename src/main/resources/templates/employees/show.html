@@ -78,7 +78,7 @@
       </div>
       <div class="col-md-auto ms-3">
         <form th:method="GET" th:action="@{/jobHistories/{id}(id=${employee.getId()})}">
-          <input th:if="${hasCurrentJob == true}" type="submit" value="Снять с текущей должности"
+          <input th:if="${hasCurrentJob == true}" type="submit" value="Снять с текущей должности" aria-disabled="false"
                  onclick="return confirm('Снять с текущей должности?')" class="btn btn-outline-warning"/>
           <input th:if="${hasCurrentJob != true}" type="submit" value="Снять с текущей должности"
                  class="btn btn-outline-warning disabled" aria-disabled="true"/>
@@ -86,7 +86,7 @@
       </div>
       <div class="col-md-auto ms-3">
         <a th:if="${hasCurrentJob != true}" th:method="GET" th:href="@{/jobHistories/new/{id}(id=${employee.getId()})}"
-           class="btn btn-outline-success">
+           class="btn btn-outline-success" aria-disabled="false">
           Назначить на новую должность
         </a>
         <a th:if="${hasCurrentJob == true}" class="btn btn-outline-success disabled" aria-disabled="true">
@@ -96,7 +96,7 @@
       <div class="col-md-auto ms-3">
         <form th:method="DELETE" th:action="@{/employees/{id}(id=${employee.getId()})}">
           <input type="submit" value="Удалить" onclick="return confirm('Удалить сотрудника?')"
-                 class="btn btn-outline-danger"/>
+                 class="btn btn-outline-danger" aria-disabled="false"/>
         </form>
       </div>
     </div>

@@ -25,18 +25,15 @@ public class MainPage extends BasePage {
         return this;
     }
 
-    public MainPage goToDepartmentsPage() {
+    public void goToDepartmentsPage() {
         click(departmentsButton);
-        return this;
     }
 
-    public MainPage goToEmployeesPage() {
+    public void goToEmployeesPage() {
         click(employeesButton);
-        return this;
     }
 
-    public MainPage goToJobsPage() {
+    public void goToJobsPage() {
         click(jobsButton);
-        return this;
     }
 }

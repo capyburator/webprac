@@ -16,10 +16,9 @@ public class DepartmentAddPage extends NonMainPage {
     @FindBy(how = How.XPATH, using = "//input[@id='name']")
     private WebElement nameInput;
 
-    public DepartmentAddPage addPage(String name) {
+    public void addPage(String name) {
         writeToElement(nameInput, name);
         click(submitButton);
-        return this;
     }
 
     public void verifyAddFailed(String expectedErrorMessage) {

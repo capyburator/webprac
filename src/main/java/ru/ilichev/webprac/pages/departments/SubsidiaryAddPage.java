@@ -21,8 +21,7 @@ public class SubsidiaryAddPage extends NonMainPage {
     private WebElement subsidiarySelect;
 
     public SubsidiaryAddPage verifyDepartmentNameIs(String expected) {
-        String text = readFromElement(department);
-        assertThat(text).isEqualTo(expected);
+        verifyElementContentIs(department, expected);
         return this;
     }
 

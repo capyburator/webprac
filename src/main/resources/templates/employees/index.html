@@ -17,12 +17,12 @@
       </li>
     </ul>
   </div>
-  <form class="d-flex ms-auto" th:method="POST" th:action="@{/employees/filterTotalDays}">
-    <input class="form-control me-2" type="text" placeholder="Срок работы" aria-label="Search" name="filter">
-    <button class="btn btn-outline-success" type="submit">Поиск</button>
-  </form>
   <form class="d-flex ms-auto" th:method="GET" th:action="@{/employees}">
     <input class="form-control me-2" type="text" placeholder="Имя сотрудника" aria-label="Search" name="filter">
+    <button class="btn btn-outline-success" type="submit">Поиск</button>
+  </form>
+  <form class="d-flex ms-auto" th:method="POST" th:action="@{/employees/filterTotalDays}">
+    <input class="form-control me-2" type="text" placeholder="Срок работы" aria-label="Search" name="filter">
     <button class="btn btn-outline-success" type="submit">Поиск</button>
   </form>
 </nav>

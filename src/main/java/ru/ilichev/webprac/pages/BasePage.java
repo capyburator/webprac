@@ -80,4 +80,19 @@ public class BasePage {
         List<String> haystack = elements.stream().map(this::readFromElement).toList();
         assertThat(haystack).containsExactlyInAnyOrderElementsOf(needles);
     }
+
+    public void verifyElementIsEnabled(WebElement element) {
+        String disabled = element.getAttribute("ariaDisabled");
+        assertThat(disabled).isEqualTo("false");
+    }
+
+    public void verifyElementIsDisabled(WebElement element) {
+        String disabled = element.getAttribute("ariaDisabled");
+        assertThat(disabled).isEqualTo("true");
+    }
+
+    public void verifyElementContentIs(WebElement element, String expected) {
+        String elementContent = readFromElement(element);
+        assertThat(elementContent).isEqualTo(expected);
+    }
 }
