@@ -1,3 +1,18 @@
+## Системное тестирование
+[![CucumberReports: System tests for HRIS](https://messages.cucumber.io/api/report-collections/6a6ddc9f-6f01-4042-a38b-42848e2d0461/badge)](https://reports.cucumber.io/report-collections/6a6ddc9f-6f01-4042-a38b-42848e2d0461)
+
+
+Реализовано с помощью фреймворков Selenium и Cucumber. 
+
+Сценарии системных тестов
+находятся в директории [features](../src/test/resources/features). 
+
+Конфигурация Cucumber находится в пакете [cucumber](../src/test/java/cucumber). 
+
+Cucumber-шаги находятся в пакете [steps](../src/test/java/steps).
+
+Объектные модели страниц, используемые в Cucumber-шагах находятся в пакете [pages](../src/main/java/ru/ilichev/webprac/pages).
+
 ## Классы контроллеры
 Находятся в пакете [controllers](../src/main/java/ru/ilichev/webprac/controllers).
 
