@@ -58,11 +58,23 @@ public class DepartmentServiceTest {
                 .name("Отдел логистики")
                 .build();
 
-        departmentService.save(department);
+        boolean saved = departmentService.save(department);
+        assertTrue(saved);
         Department fetchedDepartment = departmentService.getById(42);
 
         assertNotNull(fetchedDepartment);
         assertEquals("Отдел логистики", department.getName());
+    }
+
+    @Test
+    public void saveAlreadyExistsTest() {
+        Department department = Department.builder()
+                .active(true)
+                .name("Совет директоров")
+                .build();
+
+        boolean saved = departmentService.save(department);
+        assertFalse(saved);
     }
 
     @Test

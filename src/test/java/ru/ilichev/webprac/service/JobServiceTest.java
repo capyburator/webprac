@@ -41,11 +41,25 @@ public class JobServiceTest {
                 .description("Руководит отделом разработки ПО")
                 .build();
 
-        jobService.save(job);
+        boolean saved = jobService.save(job);
+        assertTrue(saved);
         Job fetchedJob = jobService.getById(42);
 
         assertNotNull(fetchedJob);
         assertEquals("Начальник отдела разработки ПО", fetchedJob.getTitle());
+    }
+
+    @Test
+    public void saveAlreadyExistsTest() {
+        Job job = Job.builder()
+                .active(true)
+                .manager(true)
+                .title("Генеральный директор")
+                .description("Руководит всей деятельностью организации")
+                .build();
+
+        boolean saved = jobService.save(job);
+        assertFalse(saved);
     }
 
     @Test
