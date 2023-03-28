@@ -34,13 +34,13 @@ public class ListPage extends NonMainPage {
         return this;
     }
 
-    public void verifyDoesNotContains(String needle) {
+    public void verifyDoesNotContain(String needle) {
         List<String> haystack = list.stream().map(this::readFromElement).toList();
         assertThat(haystack).doesNotContain(needle);
     }
 
     public void verifyContainsExactlyInAnyOrder(List<String> needles) {
-        verifyElementsContainsExactly(list, needles);
+        verifyElementsContainExactlyInAnyOrder(list, needles);
     }
 
     public ListPage filter(String pattern) {

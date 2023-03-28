@@ -76,7 +76,7 @@ public class BasePage {
         }
     }
 
-    public void verifyElementsContainsExactly(List<WebElement> elements, List<String> needles) {
+    public void verifyElementsContainExactlyInAnyOrder(List<WebElement> elements, List<String> needles) {
         List<String> haystack = elements.stream().map(this::readFromElement).toList();
         assertThat(haystack).containsExactlyInAnyOrderElementsOf(needles);
     }

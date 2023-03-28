@@ -90,7 +90,7 @@ public class DepartmentSteps {
     @And("Я вижу внутренние подразделения {string}")
     public void iSeeSubsidiaries(String subsidiariesCommaSeparated) {
         List<String> subsidiaries = ListUtil.commaSeparatedToList(subsidiariesCommaSeparated);
-        departmentPage.verifyContainsSubsidiariesExactly(subsidiaries);
+        departmentPage.verifyContainsSubsidiariesExactlyInAnyOrder(subsidiaries);
     }
 
     @When("Я нажимаю на кнопку Добавить подразделение")

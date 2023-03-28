@@ -68,15 +68,15 @@ public class DepartmentPage extends DeletablePage {
     }
 
     public void verifyContainsEmployeesExactly(List<String> employeeFullNames) {
-        verifyElementsContainsExactly(employees, employeeFullNames);
+        verifyElementsContainExactlyInAnyOrder(employees, employeeFullNames);
     }
 
     public void verifyContainsJobsExactly(List<String> jobTitles) {
-        verifyElementsContainsExactly(jobs, jobTitles);
+        verifyElementsContainExactlyInAnyOrder(jobs, jobTitles);
     }
 
-    public void verifyContainsSubsidiariesExactly(List<String> subsidiaryNames) {
-        verifyElementsContainsExactly(subsidiaries, subsidiaryNames);
+    public void verifyContainsSubsidiariesExactlyInAnyOrder(List<String> subsidiaryNames) {
+        verifyElementsContainExactlyInAnyOrder(subsidiaries, subsidiaryNames);
     }
 
     public DepartmentPage verifyHasManager() {

@@ -19,13 +19,13 @@ public class CommonSteps {
     }
 
     @Then("Список содержит только {string}")
-    public void listContainsExactly(String thingsCommaSeparated) {
+    public void listContainsExactlyInAnyOrder(String thingsCommaSeparated) {
         List<String> things = ListUtil.commaSeparatedToList(thingsCommaSeparated);
         commonListPage.verifyContainsExactlyInAnyOrder(things);
     }
 
     @And("Список не содержит {string}")
-    public void listDoesNotContains(String needle) {
-        commonListPage.verifyDoesNotContains(needle);
+    public void listDoesNotContain(String needle) {
+        commonListPage.verifyDoesNotContain(needle);
     }
 }

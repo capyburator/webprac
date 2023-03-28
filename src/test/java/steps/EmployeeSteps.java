@@ -44,9 +44,10 @@ public class EmployeeSteps {
 
     @When("Я перехожу по ссылке с сотрудником {string}")
     public void iClickLinkWithEmployeeName(String fullName) {
-        employeeListPage.goToPageByName(fullName);
+        employeeListPage
+                .verifyContains(fullName)
+                .goToPageByName(fullName);
     }
-
 
     @Then("Я вижу имя {string}, почту {string} и дату рождения {string}")
     public void iSeeFullNameEmailBirthDate(String fullName, String email, String birthDate) {
